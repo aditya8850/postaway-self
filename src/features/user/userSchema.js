@@ -23,7 +23,11 @@ const userSchema = new mongoose.Schema({
         required: [true, 'Gender is required'],
         enum: ['Male', 'Female', 'Other'],
         trim: true
-    }
+    },
+    tokens:[
+        {type:String
+        }
+    ]
 });
 
 export default userSchema;

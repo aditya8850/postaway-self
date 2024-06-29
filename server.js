@@ -1,10 +1,11 @@
 import "./env.js"
-import mongoose from "mongoose"
+import cookieParser from "cookie-parser"
 import express from "express"
 import cors from "cors"
 import { errorHandler } from "./src/error-handler/errorHandler.js"
 import connectUsingMongoose from "./src/config/mongoose.js"
 import upload from "./src/middlewares/multer.config.js"
+import jwtAuth from "./src/middlewares/jwt.config.js";
 import userRouter from "./src/features/user/user.route.js"
 
 // Initialize Express
@@ -12,6 +13,7 @@ const app = express();
 
 // Middleware
 app.use(express.json());
+app.use(cookieParser())
 app.use(cors());
 
 
