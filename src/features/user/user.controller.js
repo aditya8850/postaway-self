@@ -47,12 +47,12 @@ export default class UserController {
                 expiresIn
                     : '1d'
             })
-            res.cookie('token',token, {
+            res.cookie('token', token, {
                 httpOnly: true, // This prevents client-side JavaScript from reading the cookie
                 maxAge: 24 * 60 * 60 * 1000 // 1 day expiry in milliseconds
             })
-            const userWithToken = await this.userRepo.addTknToSchema(user._id, token)
-           
+            const userWithToken = await this.userRepo.addTokenToSchema(user._id, token)
+
             //send response
             return res.status(200).json({ message: "User signed in successfully", userWithToken })
         } catch (error) {
@@ -63,7 +63,7 @@ export default class UserController {
 
     async signOut(req, res, next) {
         try {
-            const user = await this.userRepo.removeTknFromSchema(req.userId,req.cookies.token)
+            const user = await this.userRepo.removeTokenFromSchema(req.userId, req.cookies.token)
             console.log(user);
             res.clearCookie('token'); // Clearing the 'token' cookie
             return res.status(200).json({ message: "User signed out successfully" })
@@ -73,14 +73,13 @@ export default class UserController {
         }
     }
 
-    async signOutAll(req,res,next){
+    async signOutAll(req, res, next) {
         try {
             const user = await this.userRepo.removeAllTokens(req.userId);
-            res.clearCookie('token'); 
+            res.clearCookie('token');
             if (!user) {
                 throw new ApplicationError('User not found', 404);
             }
-
             res.json({ message: 'Logged out from all devices successfully' });
         } catch (error) {
             console.error(error);
@@ -88,4 +87,53 @@ export default class UserController {
         }
     }
 
+    async getUser(req, res, next) {
+        try {
+            const user = await this.userRepo.getUser(req.params.userId)
+            if (!user) {
+                throw new ApplicationError('User not found', 404);
+            }
+            res.status(200).json(
+                {
+                    message: 'User details recieved.',
+                    user
+                }
+            );
+        } catch (error) {
+            console.error(error);
+            throw new ApplicationError("Err getting user!", 404)
+        }
+    }
+
+    async getAllUsers(req, res, next) {
+        try {
+            const users = await this.userRepo.getAllUsers()
+            if (!users) {
+                throw new ApplicationError('No users found', 404)
+            }
+            res.status(200).json({
+                message: 'Users recieved',
+                users
+            })
+        } catch (error) {
+            console.error(error)
+            throw new ApplicationError("Err getting all users!", 404)
+        }
+    }
+
+    async updateDetails(req, res, next) {
+        try {
+            const user = await this.userRepo.updateDetails(req.params.userId, req.body)
+            if (!user) {
+                throw new ApplicationError('User not found', 404)
+            }
+            res.status(200).json({
+                message: 'User details updated',
+                user
+            })
+        } catch (error) {
+            console.error(error)
+            throw new ApplicationError("Err updating user details!", 404)
+        }
+    }
 }

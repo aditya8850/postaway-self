@@ -24,8 +24,9 @@ const userSchema = new mongoose.Schema({
         enum: ['Male', 'Female', 'Other'],
         trim: true
     },
-    tokens:[
-        {type:String
+    tokens: [
+        {
+            type: String
         }
     ]
 });

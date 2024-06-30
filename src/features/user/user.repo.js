@@ -30,7 +30,7 @@ export default class UserRepo {
         }
 
     }
-    async addTknToSchema(userId, token) {
+    async addTokenToSchema(userId, token) {
         try {
             return await UserModel.findByIdAndUpdate(userId,
                 { $push: { tokens: token } },
@@ -41,7 +41,7 @@ export default class UserRepo {
             throw new ApplicationError("something went wrong while adding token.", 500)
         }
     }
-    async removeTknFromSchema(userId, token) {
+    async removeTokenFromSchema(userId, token) {
         try {
             return await UserModel.findByIdAndUpdate(
                 userId,
@@ -66,4 +66,28 @@ export default class UserRepo {
             throw new ApplicationError('Something went wrong with the database', 500);
         }
     }
-}
+    async getUser(userId) {
+        try {
+            return await UserModel.findById(userId).select("-password -tokens")
+        } catch (err) {
+            console.log(err)
+            throw new ApplicationError("something went wrong with db", 500)
+        }
+    }
+    async getAllUsers() {
+        try {
+            return await UserModel.find().select("-password -tokens")
+        } catch (err) {
+            console.log(err)
+            throw new ApplicationError("something went wrong with db", 500)
+        }
+    }
+    async updateDetails(userId,updatedUserDetailsObj){
+        try {
+            return await UserModel.findByIdAndUpdate(userId,updatedUserDetailsObj,{new:true})
+            } catch (err) {
+                console.log(err)
+                throw new ApplicationError("something went wrong with db", 500)
+                }
+    }
+}   
