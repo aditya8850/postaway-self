@@ -18,8 +18,29 @@ export default class PostRepo {
     }
     async getOne(postId) {
         try {
-           const res= await PostModel.findById(postId)
-           return res
+            const res = await PostModel.findById(postId)
+            return res
+        } catch (error) {
+            throw new ApplicationError(error.message, 500)
+        }
+    }
+    async getAll(userId) {
+        try {
+            return await PostModel.find({ userId })
+        } catch (error) {
+            throw new ApplicationError(error.message, 500)
+        }
+    }
+    async deletePost(postId) {
+        try {
+            return await PostModel.findByIdAndDelete(postId)
+        } catch (error) {
+            throw new ApplicationError(error.message, 500)
+        }
+    }
+    async updatePost(postId, imageUrl, caption) {
+        try {
+            return await PostModel.findByIdAndUpdate(postId, { imageUrl: imageUrl.filename, caption })
         } catch (error) {
             throw new ApplicationError(error.message, 500)
         }
