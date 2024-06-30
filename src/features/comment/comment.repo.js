@@ -37,6 +37,10 @@ export class CommentRepo {
     async deleteComment(commentId) {
         try {
             const comment = await CommentModel.findByIdAndDelete(commentId)
+            await PostModel.updateOne(
+                { postComments: commentId },
+                { $pull: { postComments: commentId } }
+            );
             return comment
         } catch (err) {
             throw new ApplicationError(err.message, 400)
