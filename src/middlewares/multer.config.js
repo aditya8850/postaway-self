@@ -1,4 +1,3 @@
-import { fn } from "jest-mock"
 import multer from "multer"
 import path from "path"
 
