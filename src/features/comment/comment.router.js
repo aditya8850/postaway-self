@@ -1,5 +1,4 @@
 import express from "express"
-import { ApplicationError } from "../../error-handler/errorHandler.js";
 import { CommentController } from "./comment.controller.js";
 const commentRouter = express.Router()
 const commentController = new CommentController()

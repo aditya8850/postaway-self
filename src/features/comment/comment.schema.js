@@ -18,4 +18,10 @@ export const CommentSchema = Schema({
     type: String,
     required: [true, 'need some text for comment'],
   },
+  commentLikes:[
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Like',
+    }
+  ]
 });

@@ -1,5 +1,4 @@
 import mongoose, { Schema } from 'mongoose';
-import { required } from 'yargs';
 
 export const LikeSchema = mongoose.Schema({
     userId: {
