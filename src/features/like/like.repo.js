@@ -7,8 +7,16 @@ const LikeModel = mongoose.model('Like', LikeSchema)
 const PostModel = mongoose.model('Post', PostSchema)
 const CommentModel = mongoose.model('Comment', CommentSchema)
 export default class LikeRepo {
-    async getLike(userId, id, type) {
-
+    async getLike(id) {
+        try {
+            const likes = await LikeModel.find({likeable:id})
+            .populate({path:"userId",select:"_id name email"})
+            .populate('likeable')
+            console.log(likes);
+            return likes
+        } catch (error) {
+            throw new ApplicationError("Err toggling like", 404);
+        }
     }
 
     async toggleLike(userId, id, type) {
