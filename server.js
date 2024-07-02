@@ -9,6 +9,7 @@ import userRouter from "./src/features/user/user.route.js"
 import postRouter from "./src/features/post/post.router.js"
 import commentRouter from "./src/features/comment/comment.router.js"
 import likeRouter from "./src/features/like/like.router.js"
+import friendRouter from "./src/features/friendship/friend.router.js"
 // Initialize Express
 const app = express();
 // Middleware
@@ -22,6 +23,7 @@ app.use("/api/users",userRouter)
 app.use("/api/posts",jwtAuth,postRouter)
 app.use("/api/comments",jwtAuth,commentRouter)
 app.use("/api/likes",jwtAuth,likeRouter)
+app.use("/api/friends",jwtAuth,friendRouter)
 //application level error handler middleware
 app.use(errorHandler)
 
