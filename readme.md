@@ -57,7 +57,11 @@ PostAway-Self is a social media application built using Node.js and Express, wit
     ```
 
 
-##Usage
+## Usage
 
 Once the server is running, you can interact with the API using tools like Postman or via a frontend application.
 
+## API Endpoints
+1. POST /auth/signup: User signup
+2. POST /auth/login: User login
+3. POST /auth/reset-password: Reset password
