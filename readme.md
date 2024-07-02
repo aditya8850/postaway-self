@@ -26,6 +26,38 @@ PostAway-Self is a social media application built using Node.js and Express, wit
 ## Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/your-username/postaway-self.git
    cd postaway-self
+
+   ```
+
+
+2. Install dependencies:
+   ```bash
+   npm install
+   ```
+
+
+3. Set up environment variables:
+   Create a .env file in the root directory and add the following variables:
+    ```bash
+    MONGODB_URI=your_mongodb_uri
+    JWT_SECRET=your_jwt_secret
+    EMAIL_USER=your_email@gmail.com
+    EMAIL_PASS=your_email_password
+
+   ```   
+
+
+4. Start the server
+    ```bash
+    nodemon server.js
+    ```
+
+
+##Usage
+
+Once the server is running, you can interact with the API using tools like Postman or via a frontend application.
+
