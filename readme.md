@@ -1,6 +1,6 @@
 # PostAway-Self
 
-PostAway-Self is a social media application built using Node.js and Express, with a MongoDB database for data storage. The application supports user authentication, posting, commenting, liking, and managing friendships.
+PostAway-Self is a social media backend application built using Node.js and Express, with a MongoDB database for data storage. The application supports user authentication, posting, commenting, liking, and managing friendships.
 
 ## Table of Contents
 
